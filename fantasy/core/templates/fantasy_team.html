@@ -1,0 +1,149 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!DOCTYPE html>
+<html>
+    {% if user.is_authenticated %}
+        <head>
+            <style>
+                ul#qb li {
+                    display:inline;
+                }
+                ul#rb1 li {
+                    display:inline;
+                }
+                ul#rb2 li {
+                    display:inline;
+                }
+                ul#wr1 li {
+                    display:inline;
+                }
+                ul#wr2 li {
+                    display:inline;
+                }
+                ul#wr3 li {
+                    display:inline;
+                }
+                ul#te li {
+                    display:inline;
+                }
+                ul#flex li {
+                    display:inline;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    {% csrf_token %}
+                    <a href="/logout">Log Out</a>
+                    <a href="/home">Home</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p> &nbsp; &nbsp; </p>
+                    <p><b>{{fantasy_team.fantasy_name}}</b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <p>&nbsp; &nbsp; <b>Roster</b></p>
+                    <ul id="qb">
+                        {% if fantasy_team.roster.qb_id %}
+                            <li>QB: {{fantasy_team.roster.quarterback.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>QB: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=QB">Draft</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="rb1">
+                        {% if fantasy_team.roster.rb_one_id %}
+                            <li>RB1: {{fantasy_team.roster.running_back_one.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>RB1: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=RB1">Draft</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="rb2">
+                        {% if fantasy_team.roster.rb_two_id %}
+                            <li>RB2: {{fantasy_team.roster.running_back_two.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>RB2: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=RB2">Draft</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="wr1">
+                        {% if fantasy_team.roster.wr_one_id %}
+                            <li>WR1: {{fantasy_team.roster.wide_receiver_one.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>WR1: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=WR1">Draft</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="wr2">
+                        {% if fantasy_team.roster.wr_two_id %}
+                            <li>WR2: {{fantasy_team.roster.wide_receiver_two.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>WR2: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=WR2">Draft</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="wr3">
+                        {% if fantasy_team.roster.wr_three_id %}
+                            <li>WR3: {{fantasy_team.roster.wide_receiver_three.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>WR3: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=WR3">Draft</a></li>
+                        {% endif %}
+                    </ul>
+                    
+                    <ul id="te">
+                        {% if fantasy_team.roster.te_id %}
+                            <li>TE: {{fantasy_team.roster.tight_end.full_name}}</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>TE: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=TE">Draft</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="flex">
+                        {% if fantasy_team.roster.flex_id %}
+                            <li>FLEX: {{fantasy_team.roster.flex_player.full_name}} ({{fantasy_team.roster.flex_player.pos_key}})</li>
+                            <li><input type="submit" value="Drop" method="POST" action="/"/></li>
+                        {% else %}
+                            <li>FLEX: Not selected yet</li>
+                            <li><a href="/draft_player?id={{fantasy_team.id}}&player_key=FLEX">Draft</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    {% csrf_token %}
+                    <a href="/find_players">Search Players</a>
+                </div>
+            </div>
+        </body> 
+                
+        {% else %}
+            <a href="/login">Log In</a>
+            <p> &nbsp;&nbsp; </p>
+            <a href="/">Splash</a>
+        {% endif %}
+</html>

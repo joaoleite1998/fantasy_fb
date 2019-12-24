@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!DOCTYPE html>
+<html>
+    {% if user.is_authenticated %}
+        <head>
+            <style>
+                ul#letters li {
+                    display:inline;
+                }
+                ul#positions li {
+                    display:inline;
+                }
+                ul#teams li {
+                    display:inline;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="row">
+                <div class="col-md-1">
+                    <p> &nbsp; &nbsp; </p>
+                </div>
+                <div class="col-md-2">
+                    {% csrf_token %}
+                    <a href="/logout">Log Out</a>
+                    <a href="/home">Home</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                
+                <div class="col-md-10">
+                    <p><b>Find players by: </b></p>
+                    <a href="/players"><b>All players</b></a>
+
+                    <ul id="letters">
+                        <li><a>Last name: </a></li>
+                        {% for letter_char in letter_chars %}
+                            <li><a href="/letter?letter_char={{letter_char}}">{{letter_char}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <ul id="positions">
+                        <li><a>Position: </a></li>
+                        {% for pos_key, pos_val in pos_leg %}
+                            <li><a href="/position?pos_key={{pos_key}}">{{pos_key}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <ul id="teams">
+                        <li><a>Team: </a></li>
+                        {% for team_name, team_key in team_leg %}
+                            <li><a href="/team?team_key={{team_key}}">{{team_key}}</a></li>
+                        {% endfor %}
+                    </ul>
+ 
+                </div>
+            </div>
+            <div class="row">
+                <p> &nbsp; &nbsp; </p>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <p>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <b>Position keys</b>
+                    </p>
+                    {% for pos_key, pos_val in pos_leg %}
+                        <p>
+                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            {{pos_key}}: {{pos_val}}
+                        </p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <b>Team keys</b>
+                    </p>
+                    {% for team_name, team_key in team_leg %}
+                        <p>
+                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            {{team_key}}: {{team_name}}
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </body> 
+                
+        {% else %}
+            <a href="/login">Log In</a>
+            <p> &nbsp;&nbsp; </p>
+            <a href="/">Splash</a>
+        {% endif %}
+</html>

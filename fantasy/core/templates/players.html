@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .p, .a {
+                display:inline-block;
+            }
+        </style>
+    </head>
+    <body>
+    {% if user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-1">
+                <p> &nbsp; &nbsp; </p>
+            </div>
+            <div class="col-md-2">
+                {% csrf_token %}
+                <a href="/logout">Log Out</a>
+                <a href="/home">Home</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            
+            <div class="col-md-5">
+                <p>Last Name, First Name, Position, Team</p>
+                {% for p in players %}
+                    <p> {{p}} <a href="/player_stats?player_id={{p.id}}">View Stats</a> </p>
+                {% endfor %}
+            </div>
+        </div>          
+    {% else %}
+        <a href="/login">Log In</a>
+        <p> &nbsp;&nbsp; </p>
+        <a href="/">Splash</a>
+    {% endif %}
+    </body>
+</html>
+
+    

@@ -1,0 +1,180 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!DOCTYPE html>
+<html>
+    {% if user.is_authenticated %}
+        <head>
+            <style>
+                ul#qb li {
+                    display:inline;
+                }
+                ul#rb1 li {
+                    display:inline;
+                }
+                ul#rb2 li {
+                    display:inline;
+                }
+                ul#wr1 li {
+                    display:inline;
+                }
+                ul#wr2 li {
+                    display:inline;
+                }
+                ul#wr3 li {
+                    display:inline;
+                }
+                ul#te li {
+                    display:inline;
+                }
+                ul#flex li {
+                    display:inline;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="row">
+                <div class="col-md-1">
+                    <p> &nbsp; &nbsp; </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <form method="POST" action="/logout">
+                        {% csrf_token %}
+                        <a href="/logout">Log Out</a>
+                    </form>
+                </div>
+                <div class="col-md-1"></div>
+                    <p> &nbsp; &nbsp; </p>
+                    <form method="POST" action="/update">
+                        {% csrf_token %}
+                        <input type="submit" value="Update Stats"/>
+                    </form>
+                    <p> &nbsp; &nbsp; </p>
+                    <form method="POST" action="/populate_database">
+                        {% csrf_token %}
+                        <input type="submit" value="Populate database"/>
+                    </form>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <a href="/find_players">Player Stats</a>
+                    <p> &nbsp; &nbsp;  </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <p>&nbsp; &nbsp; Last updated at {{roster.created_at}}</p>
+                    <p>&nbsp; &nbsp; <b>Roster &nbsp; - &nbsp; {{total_pts}} points</b></p>
+                    <ul id="qb">
+                        {% if qb %}
+                            <li><a href="/drop_player?player_id={{qb.id}}&player_key=QB">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>QB: &nbsp; {{qb.full_name}} ({{qb.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=QB">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>QB: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="rb1">
+                        {% if rb_one %}
+                            <li><a href="/drop_player?player_id={{rb_one.id}}&player_key=RB1">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>RB1: &nbsp; {{rb_one.full_name}} ({{rb_one.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=RB1">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>RB1: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="rb2">
+                        {% if rb_two %}
+                            <li><a href="/drop_player?player_id={{rb_two.id}}&player_key=RB2">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>RB2: &nbsp; {{rb_two.full_name}} ({{rb_two.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=RB2">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>RB1: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="wr1">
+                        {% if wr_one %}
+                            <li><a href="/drop_player?player_id={{wr_one.id}}&player_key=WR1">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>WR1: &nbsp; {{wr_one.full_name}} ({{wr_one.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=WR1">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>WR1: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="wr2">
+                        {% if wr_two %}
+                            <li><a href="/drop_player?player_id={{wr_two.id}}&player_key=WR2">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>WR2: &nbsp; {{wr_two.full_name}} ({{wr_two.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=WR2">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>WR2: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="wr3">
+                        {% if wr_three %}
+                            <li><a href="/drop_player?player_id={{wr_three.id}}&player_key=WR3">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>WR3: &nbsp; {{wr_three.full_name}} ({{wr_three.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=WR3">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>WR3: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+                    
+                    <ul id="te">
+                        {% if te %}
+                            <li><a href="/drop_player?player_id={{te.id}}&player_key=TE">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>TE: &nbsp; {{te.full_name}} ({{te.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=TE">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>TE: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+
+                    <ul id="flex">
+                        {% if flex %}
+                            <li><a href="/drop_player?player_id={{flex.id}}&player_key=FLEX">Drop</a></li>
+                            <li> &nbsp; &nbsp; &nbsp; </li>
+                            <li>FLEX ({{flex.pos_key}}): &nbsp; {{flex.full_name}} ({{flex.fantasy_pts}} points)</li>
+                        {% else %}
+                            <li><a href="/search_player_to_draft?player_key=FLEX">Draft</a></li>
+                            <li> &nbsp; &nbsp; &nbsp;</li>
+                            <li>FLEX: &nbsp; None</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4"></div>
+            </div>
+        </body> 
+                
+        {% else %}
+            <a href="/login">Log In</a>
+            <p> &nbsp;&nbsp; </p>
+            <a href="/">Splash</a>
+        {% endif %}
+</html>
